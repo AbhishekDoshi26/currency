@@ -91,15 +91,6 @@ class _AddCurrencyForm extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 40),
-                Text(
-                  'All Currencies',
-                  style: TextStyle(
-                    color:
-                        ColorConstants.primaryBackgroundColor.withOpacity(0.5),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                const SizedBox(height: 10),
                 Expanded(
                   child: ListView.separated(
                     itemCount: currencies.length,
