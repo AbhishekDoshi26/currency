@@ -42,7 +42,7 @@ class _SplashScreenFormState extends State<_SplashScreenForm>
         () async {
           if (_controller.isCompleted) {
             await Future.delayed(const Duration(seconds: 3)).then((value) =>
-                context.read<HomeBloc>().add(const FetchLatestRates()));
+                context.read<HomeBloc>().add(const LoadInitialHomeData()));
           }
         },
       );
@@ -53,11 +53,7 @@ class _SplashScreenFormState extends State<_SplashScreenForm>
     return BlocListener<HomeBloc, HomeState>(
       listener: (context, state) {
         if (state.status == HomeStatus.loaded) {
-          Navigator.of(context).pushReplacement(
-            HomePage.route(
-              bloc: context.read<HomeBloc>(),
-            ),
-          );
+          Navigator.of(context).pushReplacement(HomePage.route());
         }
       },
       child: Center(

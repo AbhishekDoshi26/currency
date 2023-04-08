@@ -1,7 +1,7 @@
 class ApiConstants {
-  static const String fetchListOfCurrenciesUrl =
+  static const String getListOfCurrenciesUrl =
       'https://openexchangerates.org/api/currencies.json';
 
-  static const String fetchLatestRatesUrl =
+  static const String getLatestRatesUrl =
       'https://openexchangerates.org/api/latest.json?app_id=';
 }

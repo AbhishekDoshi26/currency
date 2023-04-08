@@ -1,3 +1,4 @@
+import 'package:currency/add_currency/add_currency.dart';
 import 'package:currency/home/home.dart';
 import 'package:currency/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -9,16 +10,11 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<HomeBloc, HomeState>(
+      listenWhen: (previous, current) => previous.status != current.status,
       listener: (context, state) {
-        if (state.status == HomeStatus.error) {
-          // Handle Error
-          Navigator.of(context).pop();
-        }
+        if (state.status == HomeStatus.error) {}
       },
-      child: const Scaffold(
-        backgroundColor: ColorConstants.primaryBackgroundColor,
-        body: _HomeForm(),
-      ),
+      child: const _HomeForm(),
     );
   }
 }
@@ -37,64 +33,88 @@ class _HomeForm extends StatelessWidget {
         child: CircularProgressIndicator(),
       );
     }
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(
-            top: 150,
-            left: 30,
-            right: 30,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Text(
-                'Hello!',
-                style: TextStyle(
-                  fontSize: 50,
-                  fontWeight: FontWeight.bold,
-                  color: ColorConstants.primaryColorLight,
-                ),
-              ),
-              SizedBox(height: 10),
-              Text(
-                'Are you ready to get your currency exchanged? 💸',
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.white70,
-                ),
-              ),
-            ],
-          ),
+    return Scaffold(
+      backgroundColor: ColorConstants.primaryBackgroundColor,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(AddCurrencyPage.route());
+        },
+        backgroundColor: ColorConstants.primaryBackgroundColor,
+        child: const Icon(
+          Icons.add,
+          color: ColorConstants.primaryColorLight,
         ),
-        const Spacer(),
-        Container(
-          height: context.screenHeight / 1.8,
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30),
-              topRight: Radius.circular(30),
+      ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 150,
+              left: 30,
+              right: 30,
             ),
-            gradient: ColorConstants.primaryGradient,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text(
+                  'Hello!',
+                  style: TextStyle(
+                    fontSize: 50,
+                    fontWeight: FontWeight.bold,
+                    color: ColorConstants.primaryColorLight,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  'Are you ready to get your currency exchanged? 💸',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.white70,
+                  ),
+                ),
+              ],
+            ),
           ),
-          child: favouriteCurrency.isEmpty
-              ? const Center(
-                  child: Text(
-                    'No currency added to your favourite! 😢',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
+          const Spacer(),
+          Container(
+            height: context.screenHeight / 1.8,
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30),
+                topRight: Radius.circular(30),
+              ),
+              gradient: ColorConstants.primaryGradient,
+            ),
+            child: favouriteCurrency.isEmpty
+                ? const Center(
+                    child: Text(
+                      'No currency added to your favourite! 😢',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                      ),
+                    ),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: ListView.separated(
+                      itemCount: favouriteCurrency.length,
+                      separatorBuilder: (context, index) => Divider(
+                        thickness: 1,
+                        color: Colors.grey.shade400,
+                      ),
+                      itemBuilder: (context, index) => Text(
+                        favouriteCurrency[index],
+                        style: const TextStyle(
+                          color: ColorConstants.primaryBackgroundColor,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
                     ),
                   ),
-                )
-              : ListView.builder(
-                  itemCount: favouriteCurrency.length,
-                  itemBuilder: (context, index) => Text(
-                    favouriteCurrency[index],
-                  ),
-                ),
-        ),
-      ],
+          ),
+        ],
+      ),
     );
   }
 }
