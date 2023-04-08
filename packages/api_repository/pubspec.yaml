@@ -1,0 +1,20 @@
+name: api_repository
+description: ApiRepository pure dart package.
+version: 0.0.1
+
+environment:
+  sdk: ">=2.16.0 <3.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^0.13.5
+  json_annotation: ^4.8.0
+
+dev_dependencies:
+  build_runner: ^2.3.3
+  flutter_lints: ^1.0.0
+  flutter_test:
+    sdk: flutter
+  json_serializable: ^6.6.1
