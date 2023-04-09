@@ -1,5 +1,6 @@
 import 'package:currency/home/home.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CurrencyExpansionTile extends StatelessWidget {
   const CurrencyExpansionTile({
@@ -16,7 +17,19 @@ class CurrencyExpansionTile extends StatelessWidget {
     return Theme(
       data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
       child: ExpansionTile(
-        trailing: const SizedBox.shrink(),
+        trailing: IconButton(
+          onPressed: () {
+            context.read<HomeBloc>()
+              ..add(
+                UpdateFavouriteCurrency(currency: currency, isSelected: true),
+              )
+              ..add(const SaveFavouriteCurrency());
+          },
+          icon: Icon(
+            Icons.delete,
+            color: Colors.red.shade600,
+          ),
+        ),
         title: CurrencyExpansionHeader(
           currency: currency,
           rate: rate,

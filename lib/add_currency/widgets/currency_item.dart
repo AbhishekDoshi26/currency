@@ -17,43 +17,43 @@ class CurrencyItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            currencySymbol,
-            style: const TextStyle(
-              color: ColorConstants.primaryBackgroundColor,
-              fontWeight: FontWeight.w900,
-            ),
-          ),
-          SizedBox(
-            width: context.screenWidth / 1.8,
-            child: Text(
-              currencyValue!,
+    return InkWell(
+      onTap: () {
+        context.read<HomeBloc>().add(
+              UpdateFavouriteCurrency(
+                currency: currencySymbol,
+                isSelected: isSelected,
+              ),
+            );
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              currencySymbol,
               style: const TextStyle(
                 color: ColorConstants.primaryBackgroundColor,
-                overflow: TextOverflow.ellipsis,
+                fontWeight: FontWeight.w900,
               ),
             ),
-          ),
-          IconButton(
-            onPressed: () {
-              context.read<HomeBloc>().add(
-                    UpdateFavouriteCurrency(
-                      currency: currencySymbol,
-                      isSelected: isSelected,
-                    ),
-                  );
-            },
-            icon: Icon(
+            SizedBox(
+              width: context.screenWidth / 1.8,
+              child: Text(
+                currencyValue!,
+                style: const TextStyle(
+                  color: ColorConstants.primaryBackgroundColor,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ),
+            Icon(
               isSelected ? Icons.favorite : Icons.favorite_border_outlined,
               color: Colors.red,
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
