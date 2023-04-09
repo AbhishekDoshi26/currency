@@ -36,4 +36,27 @@ class LocalStorage {
       rethrow;
     }
   }
+
+  Future<void> setListOfCurrency({required String listOfCurrency}) async {
+    try {
+      if (_sharedPreferences == null) {
+        await _initialise();
+      }
+      await _sharedPreferences!.setString('listOfCurrency', listOfCurrency);
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<String> getListOfCurrency() async {
+    try {
+      if (_sharedPreferences == null) {
+        await _initialise();
+      }
+      final currency = _sharedPreferences!.getString('listOfCurrency');
+      return currency ?? '';
+    } catch (_) {
+      rethrow;
+    }
+  }
 }

@@ -16,3 +16,15 @@ class ColorConstants {
     end: Alignment.bottomCenter,
   );
 }
+
+class ConversionConstants {
+  static String getConversion({
+    required double rate,
+    double amount = 1,
+    String symbol = r'$',
+  }) {
+    final conversionRate = amount * (1 / rate);
+    final rateAfterMarkup = conversionRate - (conversionRate * 0.07);
+    return rateAfterMarkup.toStringAsFixed(3).toString() + symbol;
+  }
+}

@@ -42,7 +42,9 @@ class _SplashScreenFormState extends State<_SplashScreenForm>
         () async {
           if (_controller.isCompleted) {
             await Future.delayed(const Duration(seconds: 3)).then((value) =>
-                context.read<HomeBloc>().add(const LoadInitialHomeData()));
+                context.read<HomeBloc>()..add(const GetListOfCurrency()))
+              ..add(const GetFavouriteCurrency())
+              ..add(const GetLatestRates());
           }
         },
       );
@@ -52,7 +54,7 @@ class _SplashScreenFormState extends State<_SplashScreenForm>
   Widget build(BuildContext context) {
     return BlocListener<HomeBloc, HomeState>(
       listener: (context, state) {
-        if (state.status == HomeStatus.loaded) {
+        if (state.status == HomeStatus.dataLoaded) {
           Navigator.of(context).pushReplacement(HomePage.route());
         }
       },

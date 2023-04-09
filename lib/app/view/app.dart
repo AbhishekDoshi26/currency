@@ -1,6 +1,7 @@
 import 'package:api_repository/api_repository.dart';
 import 'package:currency/home/home.dart';
 import 'package:currency/splash_screen/view/splash_screen_page.dart';
+import 'package:currency/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -17,6 +18,7 @@ class App extends StatelessWidget {
         RepositoryProvider(
           create: (context) => ApiRepository(
             appID: dotenv.env['APP_ID']!,
+            localStorage: const LocalStorage(),
           ),
         ),
         RepositoryProvider(
@@ -30,8 +32,11 @@ class App extends StatelessWidget {
         ),
         child: MaterialApp(
           title: 'Currency',
-          theme: ThemeData.dark().copyWith(
+          theme: ThemeData.light().copyWith(
             primaryTextTheme: GoogleFonts.varelaTextTheme(),
+            expansionTileTheme: const ExpansionTileThemeData(
+              iconColor: ColorConstants.primaryBackgroundColor,
+            ),
           ),
           home: const SplashScreenPage(),
         ),

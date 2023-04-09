@@ -4,13 +4,6 @@ abstract class HomeEvent extends Equatable {
   const HomeEvent();
 }
 
-class LoadInitialHomeData extends HomeEvent {
-  const LoadInitialHomeData();
-
-  @override
-  List<Object?> get props => [];
-}
-
 class GetLatestRates extends HomeEvent {
   const GetLatestRates();
 

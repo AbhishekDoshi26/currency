@@ -11,7 +11,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     required this.apiRepository,
     required this.localStorage,
   }) : super(const HomeState.initial()) {
-    on<LoadInitialHomeData>(_onLoadInitialHomeData);
     on<GetListOfCurrency>(_onGetListOfCurrency);
     on<GetLatestRates>(_onGetLatestRates);
     on<GetFavouriteCurrency>(_onGetFavouriteCurrency);
@@ -21,16 +20,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   final ApiRepository apiRepository;
   final LocalStorage localStorage;
-
-  void _onLoadInitialHomeData(
-    LoadInitialHomeData event,
-    Emitter<HomeState> emit,
-  ) {
-    emit(state.copyWith(status: HomeStatus.loading));
-    add(const GetFavouriteCurrency());
-    add(const GetLatestRates());
-    add(const GetListOfCurrency());
-  }
 
   Future<void> _onGetListOfCurrency(
     GetListOfCurrency event,
@@ -58,7 +47,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       emit(state.copyWith(status: HomeStatus.loading));
       final latestRates = await apiRepository.getLatestRates();
       emit(state.copyWith(
-        status: HomeStatus.loaded,
+        status: HomeStatus.dataLoaded,
         latestRatesModel: latestRates,
       ));
     } catch (_) {
