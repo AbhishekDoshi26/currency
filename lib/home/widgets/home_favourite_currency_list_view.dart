@@ -9,9 +9,11 @@ class HomeFavouriteCurrencyListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /// List of Favourite Currencies.
     final favouriteCurrency =
         context.select((HomeBloc bloc) => bloc.state.favouriteCurrency);
 
+    /// Latest currency exchange rates.
     final latestRates =
         context.select((HomeBloc bloc) => bloc.state.latestRatesModel);
 
@@ -40,7 +42,10 @@ class HomeFavouriteCurrencyListView extends StatelessWidget {
                 color: Colors.grey.shade400,
               ),
               itemBuilder: (context, index) {
+                /// Individual currency for this particular element.
                 final currency = favouriteCurrency[index];
+
+                /// Exchange rate of the currency.
                 final rate = latestRates!.rates[currency]!;
 
                 return CurrencyExpansionTile(

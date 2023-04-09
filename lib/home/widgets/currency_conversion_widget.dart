@@ -9,7 +9,10 @@ class CurrencyConversionWidget extends StatefulWidget {
     super.key,
   });
 
+  /// Individual currency symbol.
   final String currency;
+
+  /// Exchange rate of the [currency].
   final double rate;
 
   @override
@@ -18,6 +21,7 @@ class CurrencyConversionWidget extends StatefulWidget {
 }
 
 class _CurrencyConversionWidgetState extends State<CurrencyConversionWidget> {
+  /// [TextEditingController] used for the textField used for amount
   final TextEditingController _textEditingController = TextEditingController();
 
   @override

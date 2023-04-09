@@ -28,11 +28,22 @@ class _HomeForm extends StatefulWidget {
 }
 
 class _HomeFormState extends State<_HomeForm> {
+  /// The key that will get the rect of the widget.
   GlobalKey<RectGetterState> rectGetterKey = RectGetter.createGlobalKey();
+
+  /// Rect that needs to be obtained.
+  /// It is nullable because it is obtained only after the build method
+  /// has been executed successfully.
   Rect? rect;
+
+  /// Duration of the animation for the rippple effect.
   final Duration animationDuration = const Duration(milliseconds: 300);
+
+  /// Duration of the delay of animation for the ripple effect.
   final Duration delay = const Duration(milliseconds: 300);
 
+  /// Method to be used as onTap of a widget which will
+  /// create the ripple effect navigation
   void onTap() async {
     setState(() => rect = RectGetter.getRectFromKey(rectGetterKey)!);
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -42,6 +53,7 @@ class _HomeFormState extends State<_HomeForm> {
     });
   }
 
+  /// Method that redirects the user to next page with Fade Animation.
   void _goToNextPage() {
     Navigator.of(context)
         .push(FadeRouteBuilder(page: const AddCurrencyPage()))

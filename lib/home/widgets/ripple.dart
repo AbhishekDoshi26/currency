@@ -8,7 +8,10 @@ class Ripple extends StatelessWidget {
     super.key,
   });
 
+  /// Rect of the widget from where the animation needs to be started.
   final Rect? rect;
+
+  /// Duration of the animation.
   final Duration animationDuration;
 
   @override
@@ -19,9 +22,9 @@ class Ripple extends StatelessWidget {
     return AnimatedPositioned(
       duration: animationDuration,
       left: rect!.left,
-      right: MediaQuery.of(context).size.width - rect!.right,
+      right: context.screenWidth - rect!.right,
       top: rect!.top,
-      bottom: MediaQuery.of(context).size.height - rect!.bottom,
+      bottom: context.screenHeight - rect!.bottom,
       child: Container(
         decoration: const BoxDecoration(
           shape: BoxShape.circle,

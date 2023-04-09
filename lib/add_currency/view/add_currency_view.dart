@@ -7,6 +7,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class AddCurrencyView extends StatelessWidget {
   const AddCurrencyView({Key? key}) : super(key: key);
 
+  /// Function that saves the currency.
+  /// It takes a single positional parameter [context] of type [BuildContext].
+  ///
   static void saveCurrency(BuildContext context) {
     context.read<HomeBloc>()
       ..add(const SaveFavouriteCurrency())
@@ -17,6 +20,8 @@ class AddCurrencyView extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () {
+        // Added this so that if the user selects a currency and goes back
+        // using phone gesture then the selected currencies should be saved.
         saveCurrency(context);
         return Future.value(true);
       },
@@ -46,6 +51,7 @@ class _AddCurrencyForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
+        // Background Gradient
         Container(
           height: context.screenHeight,
           width: context.screenWidth,
@@ -53,6 +59,8 @@ class _AddCurrencyForm extends StatelessWidget {
             gradient: ColorConstants.primaryGradient,
           ),
         ),
+
+        // Main View of Add Currency Page
         Scaffold(
           appBar: AppBar(
             title: const Text(
@@ -79,8 +87,12 @@ class _AddCurrencyForm extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const [
+                // Search Bar
                 SearchBar(),
+
                 SizedBox(height: 40),
+
+                // Main ListView of the currencies
                 CurrencyListView(),
               ],
             ),

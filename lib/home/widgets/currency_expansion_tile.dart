@@ -9,7 +9,10 @@ class CurrencyExpansionTile extends StatelessWidget {
     required this.rate,
   });
 
+  /// Individual currency symbol.
   final String currency;
+
+  /// Exchange rate of the [currency].
   final double rate;
 
   @override

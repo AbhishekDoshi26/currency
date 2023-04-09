@@ -8,7 +8,10 @@ class CurrencyExpansionHeader extends StatelessWidget {
     super.key,
   });
 
+  /// Individual currency symbol.
   final String currency;
+
+  /// Exchange rate of the [currency].
   final double rate;
 
   @override

@@ -20,6 +20,7 @@ class SearchBar extends StatelessWidget {
           color: ColorConstants.primaryBackgroundColor,
         ),
         onChanged: (searchString) {
+          // Added the bloc event to trigger the search functionality
           context
               .read<HomeBloc>()
               .add(SearchTextChanged(searchString: searchString));

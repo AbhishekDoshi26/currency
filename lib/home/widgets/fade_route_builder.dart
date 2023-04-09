@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+/// The route builder that shows fade transition while navigating
+/// to the [Widget] that is provided as parameter [page].
 class FadeRouteBuilder<T> extends PageRouteBuilder<T> {
   final Widget page;
 
