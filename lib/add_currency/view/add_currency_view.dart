@@ -11,7 +11,9 @@ class AddCurrencyView extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () {
-        context.read<HomeBloc>().add(const SaveFavouriteCurrency());
+        context.read<HomeBloc>()
+          ..add(const SaveFavouriteCurrency())
+          ..add(const SearchTextChanged(searchString: ''));
         return Future.value(true);
       },
       child: BlocListener<HomeBloc, HomeState>(
@@ -38,7 +40,8 @@ class _AddCurrencyForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final currencies = context.select((HomeBloc bloc) => bloc.state.currencies);
+    final currencies =
+        context.select((HomeBloc bloc) => bloc.state.searchedCurrencies);
     final currencySymbols = currencies.keys.toList();
     final favouriteCurrency =
         context.select((HomeBloc bloc) => bloc.state.favouriteCurrency);
@@ -61,8 +64,9 @@ class _AddCurrencyForm extends StatelessWidget {
               ),
             ),
             leading: IconButton(
-              onPressed: () =>
-                  context.read<HomeBloc>().add(const SaveFavouriteCurrency()),
+              onPressed: () => context.read<HomeBloc>()
+                ..add(const SaveFavouriteCurrency())
+                ..add(const SearchTextChanged(searchString: '')),
               icon: const Icon(
                 Icons.arrow_back_ios_new,
                 color: ColorConstants.primaryBackgroundColor,
@@ -87,7 +91,11 @@ class _AddCurrencyForm extends StatelessWidget {
                       Icons.search,
                       color: ColorConstants.primaryBackgroundColor,
                     ),
-                    onChanged: (value) {},
+                    onChanged: (searchString) {
+                      context
+                          .read<HomeBloc>()
+                          .add(SearchTextChanged(searchString: searchString));
+                    },
                   ),
                 ),
                 const SizedBox(height: 40),
@@ -187,7 +195,9 @@ class SaveButton extends StatelessWidget {
       padding: const EdgeInsets.all(40.0),
       child: InkWell(
         onTap: () {
-          context.read<HomeBloc>().add(const SaveFavouriteCurrency());
+          context.read<HomeBloc>()
+            ..add(const SaveFavouriteCurrency())
+            ..add(const SearchTextChanged(searchString: ''));
         },
         child: Container(
           height: 50,
@@ -202,7 +212,13 @@ class SaveButton extends StatelessWidget {
               )
             ],
           ),
-          child: const Center(child: Text('Save Currency')),
+          child: const Center(
+              child: Text(
+            'Save Currency',
+            style: TextStyle(
+              color: ColorConstants.primaryColorLight,
+            ),
+          )),
         ),
       ),
     );

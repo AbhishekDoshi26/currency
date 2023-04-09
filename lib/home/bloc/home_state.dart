@@ -14,6 +14,7 @@ class HomeState extends Equatable {
     required this.status,
     required this.favouriteCurrency,
     required this.currencies,
+    required this.searchedCurrencies,
     required this.conversionRate,
     this.latestRatesModel,
   });
@@ -23,6 +24,7 @@ class HomeState extends Equatable {
           status: HomeStatus.initial,
           favouriteCurrency: const [],
           currencies: const {},
+          searchedCurrencies: const {},
           conversionRate: '',
         );
 
@@ -30,6 +32,7 @@ class HomeState extends Equatable {
   final LatestRatesModel? latestRatesModel;
   final List<String> favouriteCurrency;
   final Map<String, String> currencies;
+  final Map<String, String> searchedCurrencies;
   final String conversionRate;
 
   HomeState copyWith({
@@ -37,6 +40,7 @@ class HomeState extends Equatable {
     LatestRatesModel? latestRatesModel,
     List<String>? favouriteCurrency,
     Map<String, String>? currencies,
+    Map<String, String>? searchedCurrencies,
     String? conversionRate,
   }) {
     return HomeState(
@@ -44,6 +48,7 @@ class HomeState extends Equatable {
       latestRatesModel: latestRatesModel ?? this.latestRatesModel,
       favouriteCurrency: favouriteCurrency ?? this.favouriteCurrency,
       currencies: currencies ?? this.currencies,
+      searchedCurrencies: searchedCurrencies ?? this.searchedCurrencies,
       conversionRate: conversionRate ?? this.conversionRate,
     );
   }
@@ -54,6 +59,7 @@ class HomeState extends Equatable {
         latestRatesModel,
         favouriteCurrency,
         currencies,
+        searchedCurrencies,
         conversionRate,
       ];
 }

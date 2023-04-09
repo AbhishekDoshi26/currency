@@ -16,6 +16,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<GetFavouriteCurrency>(_onGetFavouriteCurrency);
     on<UpdateFavouriteCurrency>(_onUpdateFavouriteCurrency);
     on<SaveFavouriteCurrency>(_onSaveFavouriteCurrency);
+    on<SearchTextChanged>(_onSearchTextChanged);
   }
 
   final ApiRepository apiRepository;
@@ -32,6 +33,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         state.copyWith(
           status: HomeStatus.loaded,
           currencies: currencies,
+          searchedCurrencies: currencies,
         ),
       );
     } catch (_) {
@@ -99,5 +101,24 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     } catch (_) {
       emit(state.copyWith(status: HomeStatus.error));
     }
+  }
+
+  Future<void> _onSearchTextChanged(
+    SearchTextChanged event,
+    Emitter<HomeState> emit,
+  ) async {
+    final currencies = state.currencies;
+    Map<String, String> searchedCurrencies = {};
+    if (event.searchString.isNotEmpty) {
+      currencies.forEach((key, value) {
+        if (key.toLowerCase().contains(event.searchString.toLowerCase()) ||
+            value.toLowerCase().contains(event.searchString.toLowerCase())) {
+          searchedCurrencies.addAll({key: value});
+        }
+      });
+    } else {
+      searchedCurrencies = state.currencies;
+    }
+    emit(state.copyWith(searchedCurrencies: searchedCurrencies));
   }
 }

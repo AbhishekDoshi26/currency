@@ -20,6 +20,7 @@ dependencies:
   google_fonts: ^4.0.3
   local_storage:
     path: packages/local_storage
+  rect_getter: ^1.1.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0

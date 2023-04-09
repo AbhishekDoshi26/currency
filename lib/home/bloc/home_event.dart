@@ -47,3 +47,11 @@ class SaveFavouriteCurrency extends HomeEvent {
   @override
   List<Object?> get props => [];
 }
+
+class SearchTextChanged extends HomeEvent {
+  const SearchTextChanged({required this.searchString});
+
+  final String searchString;
+  @override
+  List<Object?> get props => [];
+}
