@@ -47,8 +47,8 @@ class _HomeFormState extends State<_HomeForm> {
   void onTap() async {
     setState(() => rect = RectGetter.getRectFromKey(rectGetterKey)!);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      setState(() =>
-          rect = rect!.inflate(1.3 * MediaQuery.of(context).size.longestSide));
+      setState(
+          () => rect = rect!.inflate(MediaQuery.of(context).size.longestSide));
       Future.delayed(animationDuration + delay, _goToNextPage);
     });
   }
